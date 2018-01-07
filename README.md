@@ -29,7 +29,7 @@ Then just include it in your project
 
 ### Browser
 
-Use the minified browser plugin version in [vue-suggest.plugin.js](../dist/vue-suggest.plugin.js).
+Use the minified browser plugin version in [vue-suggest.plugin.js](dist/vue-suggest.plugin.js).
 This plugin auto-installs once it is loaded in the browser - making the `vue-suggest` component available right away.
 
 Just do
@@ -41,7 +41,7 @@ Just do
 
 ## Usage
 
-See [the basic example](../examples/basic.html)
+See [the basic example](examples/basic.html)
 
 ## Kudos
 
