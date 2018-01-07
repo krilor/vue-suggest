@@ -18,7 +18,7 @@
         :class="{'highlighted': index === highlightedPosition}">
 
         <!-- Scoped slot for displaying the actual list of options -->
-        <slot name="item" :option="option"> {{ defaultValue( option ) }} </slot>
+        <slot name="item" :data="option"> {{ defaultValue( option ) }} </slot>
 
       </li>
     </ul>

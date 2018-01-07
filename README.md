@@ -43,6 +43,34 @@ Just do
 
 See [the basic example](examples/basic.html)
 
+### Customizing the template for each option in the list.
+
+This is acieved through [scoped slots](https://vuejs.org/v2/guide/components.html#Scoped-Slots)
+
+A slot named `item` is available in the component. The option data is passed in the prop `data`.
+A sample customized item would for example be:
+
+```html
+<vue-suggest
+    :options="options"
+    @autocomplete="setKeyword"
+    @select="logSelect"
+    @search="logSearch">
+
+    <!--
+        Adding a template for the scoped slot.
+        Notice that the slot-scope attribute can be name anything you like,
+        and that the data prop is available within that scope.
+    -->
+    <template slot="item" slot-scope="myslotscope">
+        <div class="my-scoped-slot-class">
+            <strong>{{ myslotscope.data }}</strong>
+        </div>
+    </template>
+
+</vue-suggest>
+``` 
+
 ## Kudos
 
 * Taha Shashtari for his [tutorial on Vue autocomplete with scoped slots](http://taha-sh.com/blog/building-an-awesome-reusable-autocomplete-input-component-in-vue-21-part-one)

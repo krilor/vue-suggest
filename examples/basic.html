@@ -16,11 +16,15 @@
             @autocomplete="setKeyword"
             @select="logSelect"
             @search="logSearch">
-
-            <!-- Adding a template for the scoped slot -->
-            <template slot="item" slot-scope="option">
+            
+            <!--
+                Adding a template for the scoped slot.
+                Notice that the slot-scope attribute can be name anything you like,
+                and that the data prop is available within that scope.
+            -->
+            <template slot="item" slot-scope="myslotscope">
                 <div class="my-scoped-slot-class">
-                    <strong>{{ option.option }}</strong>
+                    <strong>{{ myslotscope.data }}</strong>
                 </div>
             </template>
 

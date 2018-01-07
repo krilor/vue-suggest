@@ -1858,7 +1858,7 @@ var render = function() {
             _vm._t(
               "item",
               [_vm._v(" " + _vm._s(_vm.defaultValue(option)) + " ")],
-              { option: option }
+              { data: option }
             )
           ],
           2
