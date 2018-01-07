@@ -1,6 +1,6 @@
 {
   "name": "vue-suggest",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple vue search component with autocomplete capabilities",
   "main": "dist/vue-suggest.js",
   "directories": {
@@ -38,7 +38,6 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
     "cross-env": "^5.1.3",
-    "css-loader": "^0.28.8",
     "eslint": "^4.15.0",
     "eslint-plugin-vue": "^4.1.0",
     "uglify-js": "^3.3.4",

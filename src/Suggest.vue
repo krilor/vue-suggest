@@ -105,8 +105,3 @@
   }
 
 </script>
-
-<!-- Leaving the style tag empty just to show that there is no styles included -->
-<style>
-
-</style>
