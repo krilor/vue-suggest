@@ -1,0 +1,62 @@
+<html>
+<head>
+    <title>Basic vue-suggest use</title>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="../dist/vue-suggest.plugin.js"></script>
+    <style>
+        .highlighted {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <vue-suggest
+            :options="filteredOptions"
+            @autocomplete="setKeyword"
+            @select="logSelect"
+            @search="logSearch">
+
+            <!-- Adding a template for the scoped slot -->
+            <template slot="item" slot-scope="option">
+                <div class="my-scoped-slot-class">
+                    <strong>{{ option.option }}</strong>
+                </div>
+            </template>
+
+        </vue-suggest>
+    </div>
+
+    <script>     
+        var app = new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue!',
+                options: ['Regulus Arcturus Black','Sirius Black','Lavender Brown','Cho Chang','Vincent Crabbe Sr.','Vincent Crabbe','Bartemius Crouch Sr.','Bartemius Crouch Jr.','Fleur Delacour','Cedric Diggory','Alberforth Dumbledore','Albus Dumbledore','Dudley Dursley','Petunia Dursley','Vernon Dursley','Argus Filch','Seamus Finnigan','Nicolas Flamel','Cornelius Fudge','Goyle Sr.','Gregory Goyle','Hermione Granger','Rubeus Hagrid','Igor Karkaroff','Viktor Krum','Bellatrix Lestrange','Alice Longbottom','Frank Longbottom','Neville Longbottom','Luna Lovegood','Xenophilius Lovegood','Remus Lupin','Draco Malfoy','Lucius Malfoy','Narcissa Malfoy','Olympe Maxime','Minerva McGonagall','Alastor Moody','Peter Pettigrew','Harry Potter','James Potter','Lily Potter','Quirinus Quirrell','Tom Riddle Sr.','Mary Riddle','Lord Voldemort','Rita Skeeter','Severus Snape','Nymphadora Tonks','Dolores Janes Umbridge','Arthur Weasley','Bill Weasley','Charlie Weasley','Fred Weasley','George Weasley','Ginny Weasley','Molly Weasley','Percy Weasley','Ron Weasley','Dobby','Fluffy','Hedwig','Moaning Myrtle','Aragog','Grawp'],
+                keyword: ''
+            },
+            /*
+            * Filteredoptions is a way of passing only options that matches the relevant search text
+            */
+            computed: {
+                filteredOptions () {
+                    const re = new RegExp(this.keyword, 'i')
+                    return this.options.filter(o => o.match(re))
+                }
+            },
+            methods: {
+                setKeyword( keyword ) {
+                    console.log('Autocomplete: ' + keyword)
+                    this.keyword = keyword
+                },
+                logSearch( keyword ) {
+                    console.log('Search: ' + keyword)
+                },
+                logSelect( option ) {
+                    console.log('Select: ' + option)
+                }
+            }
+        })
+</script>
+</body>
+</html>
