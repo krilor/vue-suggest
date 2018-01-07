@@ -7,8 +7,8 @@
     "example": "examples"
   },
   "scripts": {
-    "build": "webpack --config ./webpack.config.js --watch",
-    "lint": "eslint --ext .js,.vue"
+    "build": "webpack --config ./webpack.config.js",
+    "lint": "eslint --ext .js,.vue --env browser,node src/*"
   },
   "repository": {
     "type": "git",

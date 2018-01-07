@@ -12,7 +12,7 @@
       @blur="isOpen = false">
 
     <ul class="options-list" v-show="isOpen">
-      <li v-for="(option, index) in options"
+      <li v-for="(option, index) in options" :key='index'
         @mouseenter="highlightedPosition = index"
         @mousedown="select"
         :class="{'highlighted': index === highlightedPosition}">
@@ -64,7 +64,7 @@
         this.highlightedPosition = NaN
 
         if ( this.keyword ) {
-          this.$emit('autocomplete', this.keyword)  
+          this.$emit('autocomplete', this.keyword)
         }
         
       },

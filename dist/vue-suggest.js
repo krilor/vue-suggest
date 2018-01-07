@@ -447,6 +447,7 @@ var render = function() {
         return _c(
           "li",
           {
+            key: index,
             class: { highlighted: index === _vm.highlightedPosition },
             on: {
               mouseenter: function($event) {
