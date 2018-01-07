@@ -1,6 +1,6 @@
 {
   "name": "vue-suggest",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Simple vue search component with autocomplete capabilities",
   "main": "dist/vue-suggest.js",
   "directories": {
