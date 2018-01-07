@@ -4,7 +4,6 @@
       v-model="keyword"
       class="input is-large"
       placeholder="Search..."
-      @input="onInput($event.target.value)"
       @keyup.esc="isOpen = false"
       @keydown.down="moveDown"
       @keydown.up="moveUp"
@@ -32,13 +31,19 @@
       options: {
         type: Array,
         required: true
+      },
+      debounce: {
+        type: Number,
+        required: false,
+        default: 0
       }
     },
     data () {
       return {
         isOpen: false,
         highlightedPosition: NaN,
-        keyword: ''
+        keyword: '',
+        timeout: undefined
       }
     },
     methods: {
@@ -54,19 +59,6 @@
         } else {
           return ''
         }
-      },
-      /**
-       * Method bound to the input event
-       * $emits the current keyword types in autocomplete event
-       */
-      onInput (value) {
-        this.isOpen = !!value
-        this.highlightedPosition = NaN
-
-        if ( this.keyword ) {
-          this.$emit('autocomplete', this.keyword)
-        }
-        
       },
       moveDown () {
         if (!this.isOpen) {
@@ -90,7 +82,6 @@
       },
       select () {
         const selectedOption = this.options[this.highlightedPosition]
-        this.keyword = selectedOption.stedsnavn
         this.isOpen = false
         this.$emit('select', selectedOption)
       },
@@ -100,6 +91,31 @@
         } else {
           this.$emit( 'search', this.keyword )
         }
+      }
+    },
+    watch: {
+      /**
+      * Method bound to the input event
+      * $emits the current keyword types in autocomplete event
+      */
+      keyword: function() {
+
+        this.isOpen = !!this.keyword
+        this.highlightedPosition = NaN
+
+        if ( this.keyword ) {
+          this.$emit('change', this.keyword)
+        }
+
+        if ( this.timeout !== undefined ){
+          clearTimeout(this.timeout)
+        }
+
+        this.timeout = setTimeout( () => { // need fat arrow function to preserve "this"
+          this.$emit('autocomplete', this.keyword)
+          this.timeout = undefined
+        }, this.debounce )
+
       }
     }
   }

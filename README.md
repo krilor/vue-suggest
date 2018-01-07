@@ -49,7 +49,8 @@ The search element emits three events.
 
 | Event | Attributes | Description |
 | :--- | :--- | :--- |
-| autocomplete | keyword | This is triggered every time the input changes, and the keyword contains what is currently in the search field. Intended for autocomplete requests or filtering. |
+| autocomplete | keyword | Triggered after input change and debounce. Intended for autocomplete requests or filtering. |
+| change | keyword | This is triggered every time the input changes, and the keyword contains what is currently in the search field. |
 | search | keyword | If the user searches (press enter) while in the search field. Keyword is the current search phrase. |
 | select | option | If the user picks from the suggestion list, the full option item is emitted in the select event |
 
@@ -58,6 +59,7 @@ The search element emits three events.
 | Prop | Type | Description |
 | :--- | :--- | :--- |
 | options | Array | Array of current suggestions. This should be a filtered list based on the keyword emitted in the autocomplete event. Should be an array of strings or objects |
+| debounce | Number | Milliseconds to debounce the input before emitting the autocomplete event. How long the user have to stop typing before the event is triggered. Default: 0 ms. |
 
 ### Customizing the template for each option in the list.
 

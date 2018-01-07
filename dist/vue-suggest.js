@@ -112,7 +112,6 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
-//
 
 exports.default = {
   name: 'suggest-search',
@@ -120,13 +119,19 @@ exports.default = {
     options: {
       type: Array,
       required: true
+    },
+    debounce: {
+      type: Number,
+      required: false,
+      default: 0
     }
   },
   data: function data() {
     return {
       isOpen: false,
       highlightedPosition: NaN,
-      keyword: ''
+      keyword: '',
+      timeout: undefined
     };
   },
 
@@ -142,19 +147,6 @@ exports.default = {
         return String(option[Object.keys(option)[0]]); // returns one (random) string value
       } else {
         return '';
-      }
-    },
-
-    /**
-     * Method bound to the input event
-     * $emits the current keyword types in autocomplete event
-     */
-    onInput: function onInput(value) {
-      this.isOpen = !!value;
-      this.highlightedPosition = NaN;
-
-      if (this.keyword) {
-        this.$emit('autocomplete', this.keyword);
       }
     },
     moveDown: function moveDown() {
@@ -175,7 +167,6 @@ exports.default = {
     },
     select: function select() {
       var selectedOption = this.options[this.highlightedPosition];
-      this.keyword = selectedOption.stedsnavn;
       this.isOpen = false;
       this.$emit('select', selectedOption);
     },
@@ -185,6 +176,32 @@ exports.default = {
       } else {
         this.$emit('search', this.keyword);
       }
+    }
+  },
+  watch: {
+    /**
+    * Method bound to the input event
+    * $emits the current keyword types in autocomplete event
+    */
+    keyword: function keyword() {
+      var _this = this;
+
+      this.isOpen = !!this.keyword;
+      this.highlightedPosition = NaN;
+
+      if (this.keyword) {
+        this.$emit('change', this.keyword);
+      }
+
+      if (this.timeout !== undefined) {
+        clearTimeout(this.timeout);
+      }
+
+      this.timeout = setTimeout(function () {
+        // need fat arrow function to preserve "this"
+        _this.$emit('autocomplete', _this.keyword);
+        _this.timeout = undefined;
+      }, this.debounce);
     }
   }
 };
@@ -375,17 +392,6 @@ var render = function() {
       attrs: { placeholder: "Search..." },
       domProps: { value: _vm.keyword },
       on: {
-        input: [
-          function($event) {
-            if ($event.target.composing) {
-              return
-            }
-            _vm.keyword = $event.target.value
-          },
-          function($event) {
-            _vm.onInput($event.target.value)
-          }
-        ],
         keyup: function($event) {
           if (
             !("button" in $event) &&
@@ -426,6 +432,12 @@ var render = function() {
         ],
         blur: function($event) {
           _vm.isOpen = false
+        },
+        input: function($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.keyword = $event.target.value
         }
       }
     }),

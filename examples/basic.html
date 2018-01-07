@@ -13,10 +13,12 @@
     <div id="app">
         <vue-suggest
             :options="filteredOptions"
+            :debounce="200"
             @autocomplete="setKeyword"
+            @change="logChange"
             @select="logSelect"
             @search="logSearch">
-            
+
             <!--
                 Adding a template for the scoped slot.
                 Notice that the slot-scope attribute can be name anything you like,
@@ -52,6 +54,9 @@
                 setKeyword( keyword ) {
                     console.log('Autocomplete: ' + keyword)
                     this.keyword = keyword
+                },
+                logChange( keyword ) {
+                    console.log('Change: ' + keyword)
                 },
                 logSearch( keyword ) {
                     console.log('Search: ' + keyword)
