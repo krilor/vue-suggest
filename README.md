@@ -36,12 +36,28 @@ Just do
 
 ```html
 <script src="https://unpkg.com/vue"></script>
-<script src="../dist/vue-suggest.plugin.js"></script>
+<script src="https://unpkg.com/vue-suggest/dist/vue-suggest.plugin.js"></script>
 ```
 
 ## Usage
 
 See [the basic example](examples/basic.html)
+
+### Events
+
+The search element emits three events.
+
+| Event | Attributes | Description |
+| :--- | :--- | :--- |
+| autocomplete | keyword | This is triggered every time the input changes, and the keyword contains what is currently in the search field. Intended for autocomplete requests or filtering. |
+| search | keyword | If the user searches (press enter) while in the search field. Keyword is the current search phrase. |
+| select | option | If the user picks from the suggestion list, the full option item is emitted in the select event |
+
+### Props
+
+| Prop | Type | Description |
+| :--- | :--- | :--- |
+| options | Array | Array of current suggestions. This should be a filtered list based on the keyword emitted in the autocomplete event. Should be an array of strings or objects |
 
 ### Customizing the template for each option in the list.
 
