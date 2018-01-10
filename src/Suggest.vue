@@ -1,7 +1,9 @@
 <template>
   <div class="suggest-search">
     <input
-      v-model="keyword"
+      ref="input"
+      v-bind:value="value"
+      v-on:input="updateValue($event.target.value)"
       class="input is-large"
       placeholder="Search..."
       @keyup.esc="isOpen = false"
@@ -32,18 +34,16 @@
         type: Array,
         required: true
       },
-      debounce: {
-        type: Number,
-        required: false,
-        default: 0
+      value: {
+        type: String,
+        required: false
       }
     },
     data () {
       return {
         isOpen: false,
         highlightedPosition: NaN,
-        keyword: '',
-        timeout: undefined
+        keyword: ''
       }
     },
     methods: {
@@ -51,7 +51,7 @@
        * Used to provide a default value-string in the slot for the options.
        * This method is not used when the scoped slot is used
        */
-      defaultValue( option ) {
+      defaultValue: function( option ) {
         if ( typeof option === 'string' ) {
           return option
         } else if ( typeof option === 'object' ) {
@@ -60,7 +60,7 @@
           return ''
         }
       },
-      moveDown () {
+      moveDown: function() {
         if (!this.isOpen) {
           return
         }
@@ -72,7 +72,7 @@
         }
         
       },
-      moveUp () {
+      moveUp: function() {
         if (!this.isOpen) {
           return
         }
@@ -80,42 +80,25 @@
           ? this.options.length - 1
           : this.highlightedPosition - 1
       },
-      select () {
+      select: function() {
         const selectedOption = this.options[this.highlightedPosition]
         this.isOpen = false
         this.$emit('select', selectedOption)
       },
-      settle () {
+      settle: function() {
         if ( this.isOpen && !isNaN(this.highlightedPosition) ) {
           this.select()
         } else {
-          this.$emit( 'search', this.keyword )
+          this.$emit( 'search', this.value )
         }
-      }
-    },
-    watch: {
+      },
       /**
-      * Method bound to the input event
-      * $emits the current keyword types in autocomplete event
+      * $emits the current value types in input event
       */
-      keyword: function() {
-
-        this.isOpen = !!this.keyword
+      updateValue: function(value) {
+        this.isOpen = !!this.value
         this.highlightedPosition = NaN
-
-        if ( this.keyword ) {
-          this.$emit('change', this.keyword)
-        }
-
-        if ( this.timeout !== undefined ){
-          clearTimeout(this.timeout)
-        }
-
-        this.timeout = setTimeout( () => { // need fat arrow function to preserve "this"
-          this.$emit('autocomplete', this.keyword)
-          this.timeout = undefined
-        }, this.debounce )
-
+        this.$emit('input', value)
       }
     }
   }

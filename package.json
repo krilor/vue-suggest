@@ -7,6 +7,7 @@
     "example": "examples"
   },
   "scripts": {
+    "dev": "webpack-dev-server --inline --progress --config ./webpack.config.js",
     "build": "webpack --config ./webpack.config.js",
     "lint": "eslint --ext .js,.vue --env browser,node src/*"
   },
@@ -39,6 +40,7 @@
     "uglify-js": "^3.3.4",
     "vue-loader": "^13.6.2",
     "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.10.1",
     "webpack-merge": "^4.1.1"
   }
 }

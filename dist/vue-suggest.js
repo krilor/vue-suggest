@@ -112,6 +112,8 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
+//
 
 exports.default = {
   name: 'suggest-search',
@@ -120,18 +122,16 @@ exports.default = {
       type: Array,
       required: true
     },
-    debounce: {
-      type: Number,
-      required: false,
-      default: 0
+    value: {
+      type: String,
+      required: false
     }
   },
   data: function data() {
     return {
       isOpen: false,
       highlightedPosition: NaN,
-      keyword: '',
-      timeout: undefined
+      keyword: ''
     };
   },
 
@@ -174,34 +174,17 @@ exports.default = {
       if (this.isOpen && !isNaN(this.highlightedPosition)) {
         this.select();
       } else {
-        this.$emit('search', this.keyword);
+        this.$emit('search', this.value);
       }
-    }
-  },
-  watch: {
+    },
     /**
-    * Method bound to the input event
-    * $emits the current keyword types in autocomplete event
+    * $emits the current value types in input event
     */
-    keyword: function keyword() {
-      var _this = this;
-
-      this.isOpen = !!this.keyword;
+    updateValue: function updateValue(value) {
+      this.isOpen = !!this.value;
       this.highlightedPosition = NaN;
-
-      if (this.keyword) {
-        this.$emit('change', this.keyword);
-      }
-
-      if (this.timeout !== undefined) {
-        clearTimeout(this.timeout);
-      }
-
-      this.timeout = setTimeout(function () {
-        // need fat arrow function to preserve "this"
-        _this.$emit('autocomplete', _this.keyword);
-        _this.timeout = undefined;
-      }, this.debounce);
+      this.$emit('input', value);
+      this.$emit('update:input', value);
     }
   }
 };
@@ -380,18 +363,14 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "suggest-search" }, [
     _c("input", {
-      directives: [
-        {
-          name: "model",
-          rawName: "v-model",
-          value: _vm.keyword,
-          expression: "keyword"
-        }
-      ],
+      ref: "input",
       staticClass: "input is-large",
       attrs: { placeholder: "Search..." },
-      domProps: { value: _vm.keyword },
+      domProps: { value: _vm.value },
       on: {
+        input: function($event) {
+          _vm.updateValue($event.target.value)
+        },
         keyup: function($event) {
           if (
             !("button" in $event) &&
@@ -432,12 +411,6 @@ var render = function() {
         ],
         blur: function($event) {
           _vm.isOpen = false
-        },
-        input: function($event) {
-          if ($event.target.composing) {
-            return
-          }
-          _vm.keyword = $event.target.value
         }
       }
     }),

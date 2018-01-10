@@ -1,1 +1,517 @@
-window.VueSuggest=function(t){function e(n){if(i[n])return i[n].exports;var o=i[n]={i:n,l:!1,exports:{}};return t[n].call(o.exports,o,o.exports,e),o.l=!0,o.exports}var i={};return e.m=t,e.c=i,e.d=function(t,i,n){e.o(t,i)||Object.defineProperty(t,i,{configurable:!1,enumerable:!0,get:n})},e.n=function(t){var i=t&&t.__esModule?function(){return t.default}:function(){return t};return e.d(i,"a",i),i},e.o=function(t,e){return Object.prototype.hasOwnProperty.call(t,e)},e.p="",e(e.s=1)}([function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t};e.default={name:"suggest-search",props:{options:{type:Array,required:!0},debounce:{type:Number,required:!1,default:0}},data:function(){return{isOpen:!1,highlightedPosition:NaN,keyword:"",timeout:void 0}},methods:{defaultValue:function(t){return"string"==typeof t?t:"object"===(void 0===t?"undefined":n(t))?String(t[Object.keys(t)[0]]):""},moveDown:function(){this.isOpen&&(isNaN(this.highlightedPosition)?this.highlightedPosition=0:this.highlightedPosition=(this.highlightedPosition+1)%this.options.length)},moveUp:function(){this.isOpen&&(this.highlightedPosition=this.highlightedPosition-1<0?this.options.length-1:this.highlightedPosition-1)},select:function(){var t=this.options[this.highlightedPosition];this.isOpen=!1,this.$emit("select",t)},settle:function(){this.isOpen&&!isNaN(this.highlightedPosition)?this.select():this.$emit("search",this.keyword)}},watch:{keyword:function(){var t=this;this.isOpen=!!this.keyword,this.highlightedPosition=NaN,this.keyword&&this.$emit("change",this.keyword),void 0!==this.timeout&&clearTimeout(this.timeout),this.timeout=setTimeout(function(){t.$emit("autocomplete",t.keyword),t.timeout=void 0},this.debounce)}}}},function(t,e,i){"use strict";(function(t){function n(t){t.component("vue-suggest",s.default)}Object.defineProperty(e,"__esModule",{value:!0}),e.install=n;var o=i(3),s=function(t){return t&&t.__esModule?t:{default:t}}(o);"undefined"!=typeof window&&window.Vue?window.Vue.use({install:n}):void 0!==t&&t.Vue.use({install:n})}).call(e,i(2))},function(t,e){var i;i=function(){return this}();try{i=i||Function("return this")()||(0,eval)("this")}catch(t){"object"==typeof window&&(i=window)}t.exports=i},function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0});var n=i(0),o=i.n(n);for(var s in n)"default"!==s&&function(t){i.d(e,t,function(){return n[t]})}(s);var r=i(5),u=i(4),l=u(o.a,r.a,!1,null,null,null);l.options.__file="src/Suggest.vue",e.default=l.exports},function(t,e){t.exports=function(t,e,i,n,o,s){var r,u=t=t||{},l=typeof t.default;"object"!==l&&"function"!==l||(r=t,u=t.default);var c="function"==typeof u?u.options:u;e&&(c.render=e.render,c.staticRenderFns=e.staticRenderFns,c._compiled=!0),i&&(c.functional=!0),o&&(c._scopeId=o);var d;if(s?(d=function(t){t=t||this.$vnode&&this.$vnode.ssrContext||this.parent&&this.parent.$vnode&&this.parent.$vnode.ssrContext,t||"undefined"==typeof __VUE_SSR_CONTEXT__||(t=__VUE_SSR_CONTEXT__),n&&n.call(this,t),t&&t._registeredComponents&&t._registeredComponents.add(s)},c._ssrRegister=d):n&&(d=n),d){var a=c.functional,h=a?c.render:c.beforeCreate;a?(c._injectStyles=d,c.render=function(t,e){return d.call(e),h(t,e)}):c.beforeCreate=h?[].concat(h,d):[d]}return{esModule:r,exports:u,options:c}}},function(t,e,i){"use strict";var n=function(){var t=this,e=t.$createElement,i=t._self._c||e;return i("div",{staticClass:"suggest-search"},[i("input",{directives:[{name:"model",rawName:"v-model",value:t.keyword,expression:"keyword"}],staticClass:"input is-large",attrs:{placeholder:"Search..."},domProps:{value:t.keyword},on:{keyup:function(e){if(!("button"in e)&&t._k(e.keyCode,"esc",27,e.key))return null;t.isOpen=!1},keydown:[function(e){if(!("button"in e)&&t._k(e.keyCode,"down",40,e.key))return null;t.moveDown(e)},function(e){if(!("button"in e)&&t._k(e.keyCode,"up",38,e.key))return null;t.moveUp(e)},function(e){if(!("button"in e)&&t._k(e.keyCode,"enter",13,e.key))return null;t.settle(e)}],blur:function(e){t.isOpen=!1},input:function(e){e.target.composing||(t.keyword=e.target.value)}}}),t._v(" "),i("ul",{directives:[{name:"show",rawName:"v-show",value:t.isOpen,expression:"isOpen"}],staticClass:"options-list"},t._l(t.options,function(e,n){return i("li",{key:n,class:{highlighted:n===t.highlightedPosition},on:{mouseenter:function(e){t.highlightedPosition=n},mousedown:t.select}},[t._t("item",[t._v(" "+t._s(t.defaultValue(e))+" ")],{data:e})],2)}))])},o=[];n._withStripped=!0;var s={render:n,staticRenderFns:o};e.a=s}]);
+window["VueSuggest"] =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+exports.default = {
+  name: 'suggest-search',
+  props: {
+    options: {
+      type: Array,
+      required: true
+    },
+    value: {
+      type: String,
+      required: false
+    }
+  },
+  data: function data() {
+    return {
+      isOpen: false,
+      highlightedPosition: NaN,
+      keyword: ''
+    };
+  },
+
+  methods: {
+    /**
+     * Used to provide a default value-string in the slot for the options.
+     * This method is not used when the scoped slot is used
+     */
+    defaultValue: function defaultValue(option) {
+      if (typeof option === 'string') {
+        return option;
+      } else if ((typeof option === 'undefined' ? 'undefined' : _typeof(option)) === 'object') {
+        return String(option[Object.keys(option)[0]]); // returns one (random) string value
+      } else {
+        return '';
+      }
+    },
+    moveDown: function moveDown() {
+      if (!this.isOpen) {
+        return;
+      }
+      if (isNaN(this.highlightedPosition)) {
+        this.highlightedPosition = 0;
+      } else {
+        this.highlightedPosition = (this.highlightedPosition + 1) % this.options.length;
+      }
+    },
+    moveUp: function moveUp() {
+      if (!this.isOpen) {
+        return;
+      }
+      this.highlightedPosition = this.highlightedPosition - 1 < 0 ? this.options.length - 1 : this.highlightedPosition - 1;
+    },
+    select: function select() {
+      var selectedOption = this.options[this.highlightedPosition];
+      this.isOpen = false;
+      this.$emit('select', selectedOption);
+    },
+    settle: function settle() {
+      if (this.isOpen && !isNaN(this.highlightedPosition)) {
+        this.select();
+      } else {
+        this.$emit('search', this.value);
+      }
+    },
+    /**
+    * $emits the current value types in input event
+    */
+    updateValue: function updateValue(value) {
+      this.isOpen = !!this.value;
+      this.highlightedPosition = NaN;
+      this.$emit('input', value);
+      this.$emit('update:input', value);
+    }
+  }
+};
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.install = install;
+
+var _Suggest = __webpack_require__(3);
+
+var _Suggest2 = _interopRequireDefault(_Suggest);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function install(Vue) {
+  Vue.component('vue-suggest', _Suggest2.default);
+}
+
+/* Auto-install */
+if (typeof window !== 'undefined' && window.Vue) {
+  window.Vue.use({ install: install });
+} else if (typeof global !== 'undefined') {
+  global.Vue.use({ install: install });
+}
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
+
+/***/ }),
+/* 2 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 3 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Suggest_vue__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Suggest_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Suggest_vue__);
+/* harmony namespace reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Suggest_vue__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Suggest_vue__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5a3f159b_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Suggest_vue__ = __webpack_require__(5);
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+
+
+/* template */
+
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __WEBPACK_IMPORTED_MODULE_0__babel_loader_node_modules_vue_loader_lib_selector_type_script_index_0_Suggest_vue___default.a,
+  __WEBPACK_IMPORTED_MODULE_1__node_modules_vue_loader_lib_template_compiler_index_id_data_v_5a3f159b_hasScoped_false_buble_transforms_node_modules_vue_loader_lib_selector_type_template_index_0_Suggest_vue__["a" /* default */],
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "src/Suggest.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5a3f159b", Component.options)
+  } else {
+    hotAPI.reload("data-v-5a3f159b", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+/* harmony default export */ __webpack_exports__["default"] = (Component.exports);
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
+
+
+/***/ }),
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "suggest-search" }, [
+    _c("input", {
+      ref: "input",
+      staticClass: "input is-large",
+      attrs: { placeholder: "Search..." },
+      domProps: { value: _vm.value },
+      on: {
+        input: function($event) {
+          _vm.updateValue($event.target.value)
+        },
+        keyup: function($event) {
+          if (
+            !("button" in $event) &&
+            _vm._k($event.keyCode, "esc", 27, $event.key)
+          ) {
+            return null
+          }
+          _vm.isOpen = false
+        },
+        keydown: [
+          function($event) {
+            if (
+              !("button" in $event) &&
+              _vm._k($event.keyCode, "down", 40, $event.key)
+            ) {
+              return null
+            }
+            _vm.moveDown($event)
+          },
+          function($event) {
+            if (
+              !("button" in $event) &&
+              _vm._k($event.keyCode, "up", 38, $event.key)
+            ) {
+              return null
+            }
+            _vm.moveUp($event)
+          },
+          function($event) {
+            if (
+              !("button" in $event) &&
+              _vm._k($event.keyCode, "enter", 13, $event.key)
+            ) {
+              return null
+            }
+            _vm.settle($event)
+          }
+        ],
+        blur: function($event) {
+          _vm.isOpen = false
+        }
+      }
+    }),
+    _vm._v(" "),
+    _c(
+      "ul",
+      {
+        directives: [
+          {
+            name: "show",
+            rawName: "v-show",
+            value: _vm.isOpen,
+            expression: "isOpen"
+          }
+        ],
+        staticClass: "options-list"
+      },
+      _vm._l(_vm.options, function(option, index) {
+        return _c(
+          "li",
+          {
+            key: index,
+            class: { highlighted: index === _vm.highlightedPosition },
+            on: {
+              mouseenter: function($event) {
+                _vm.highlightedPosition = index
+              },
+              mousedown: _vm.select
+            }
+          },
+          [
+            _vm._t(
+              "item",
+              [_vm._v(" " + _vm._s(_vm.defaultValue(option)) + " ")],
+              { data: option }
+            )
+          ],
+          2
+        )
+      })
+    )
+  ])
+}
+var staticRenderFns = []
+render._withStripped = true
+var esExports = { render: render, staticRenderFns: staticRenderFns }
+/* harmony default export */ __webpack_exports__["a"] = (esExports);
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-5a3f159b", esExports)
+  }
+}
+
+/***/ })
+/******/ ]);

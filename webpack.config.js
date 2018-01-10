@@ -34,7 +34,7 @@ module.exports = [
       filename: 'vue-suggest.plugin.js',
       libraryTarget: 'window',
       library: 'VueSuggest',
-    },
+    }/*,
     plugins: [
     new webpack.optimize.UglifyJsPlugin( {
       minimize : true,
@@ -44,7 +44,7 @@ module.exports = [
         warnings: false
       }
     } )
-    ]
+    ]*/
   }),
   merge(config, {
     entry: path.resolve(__dirname + '/src/Suggest.vue'),
