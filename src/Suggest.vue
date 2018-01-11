@@ -1,22 +1,23 @@
 <template>
-  <div class="suggest-search">
+  <div :class="wrapperClasses">
     <input
       ref="input"
       v-bind:value="value"
       v-on:input="updateValue($event.target.value)"
-      class="input is-large"
-      placeholder="Search..."
+      :class="inputClasses"
+      :placeholder="placeholder"
       @keyup.esc="isOpen = false"
       @keydown.down="moveDown"
       @keydown.up="moveUp"
       @keydown.enter="settle"
-      @blur="isOpen = false">
+      @blur="isOpen = false"
+      autocomplete="off">
 
-    <ul class="options-list" v-show="isOpen">
+    <ul :class="listClasses" v-show="isOpen">
       <li v-for="(option, index) in options" :key='index'
         @mouseenter="highlightedPosition = index"
         @mousedown="select"
-        :class="{'highlighted': index === highlightedPosition}">
+        :class="[itemClasses, {'highlighted': index === highlightedPosition}]">
 
         <!-- Scoped slot for displaying the actual list of options -->
         <slot name="item" :data="option"> {{ defaultValue( option ) }} </slot>
@@ -30,13 +31,38 @@
   export default {
     name: 'suggest-search',
     props: {
-      options: {
+      Options: {
         type: Array,
         required: true
       },
-      value: {
+      Value: {
         type: String,
         required: false
+      },
+      WrapperClasses: {
+        type: String,
+        required: false,
+        default: 'suggest-wrap'
+      },
+      InputClasses: {
+        type: String,
+        required: false,
+        default: 'suggest-input'
+      },
+      ListClasses: {
+        type: String,
+        required: false,
+        default: 'suggest-list'
+      },
+      ItemClasses: {
+        type: String,
+        required: false,
+        default: 'suggest-item'
+      },
+      Placeholder: {
+        type: String,
+        required: false,
+        default: 'Search..'
       }
     },
     data () {

@@ -105,17 +105,43 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 //
 //
 //
+//
 
 exports.default = {
   name: 'suggest-search',
   props: {
-    options: {
+    Options: {
       type: Array,
       required: true
     },
-    value: {
+    Value: {
       type: String,
       required: false
+    },
+    WrapperClasses: {
+      type: String,
+      required: false,
+      default: 'suggest-wrap'
+    },
+    InputClasses: {
+      type: String,
+      required: false,
+      default: 'suggest-input'
+    },
+    ListClasses: {
+      type: String,
+      required: false,
+      default: 'suggest-list'
+    },
+    ItemClasses: {
+      type: String,
+      required: false,
+      default: 'suggest-item'
+    },
+    Placeholder: {
+      type: String,
+      required: false,
+      default: 'Search..'
     }
   },
   data: function data() {
@@ -175,7 +201,6 @@ exports.default = {
       this.isOpen = !!this.value;
       this.highlightedPosition = NaN;
       this.$emit('input', value);
-      this.$emit('update:input', value);
     }
   }
 };
@@ -409,11 +434,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "suggest-search" }, [
+  return _c("div", { class: _vm.wrapperClasses }, [
     _c("input", {
       ref: "input",
-      staticClass: "input is-large",
-      attrs: { placeholder: "Search..." },
+      class: _vm.inputClasses,
+      attrs: { placeholder: _vm.placeholder, autocomplete: "off" },
       domProps: { value: _vm.value },
       on: {
         input: function($event) {
@@ -474,14 +499,17 @@ var render = function() {
             expression: "isOpen"
           }
         ],
-        staticClass: "options-list"
+        class: _vm.listClasses
       },
       _vm._l(_vm.options, function(option, index) {
         return _c(
           "li",
           {
             key: index,
-            class: { highlighted: index === _vm.highlightedPosition },
+            class: [
+              _vm.itemClasses,
+              { highlighted: index === _vm.highlightedPosition }
+            ],
             on: {
               mouseenter: function($event) {
                 _vm.highlightedPosition = index
