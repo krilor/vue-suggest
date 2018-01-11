@@ -96,6 +96,20 @@ A sample customized item would for example be:
 </vue-suggest>
 ``` 
 
+### Rendered HTML
+
+The rendered HTML is pretty simple:
+
+```html
+<div class="suggest-wrap">
+    <input placeholder="Search.." autocomplete="off" class="suggest-input">
+    <ul class="suggest-list" style="display: none;">
+        <li class="suggest-item">Item</li>
+        <li class="suggest-item highlighted">Highlighted item</li>
+    </ul>
+</div>
+```
+
 ## Kudos
 
 * Taha Shashtari for his [tutorial on Vue autocomplete with scoped slots](http://taha-sh.com/blog/building-an-awesome-reusable-autocomplete-input-component-in-vue-21-part-one)
