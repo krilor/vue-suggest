@@ -16,6 +16,7 @@ This autocomplete component will be the component you need if you want:
 * no functionality for getting options from an endpoint.
 * simple interface
 * a customizable render/template for the options through [scoped slots](https://vuejs.org/v2/guide/components.html#Scoped-Slots)
+* enables and requires use of the `v-model` binding for [custom input components](https://vuejs.org/v2/guide/components.html#Form-Input-Components-using-Custom-Events)
 
 ## Installation
 
@@ -57,10 +58,15 @@ The search element emits three events.
 
 ### Props
 
-| Prop | Type | Description |
-| :--- | :--- | :--- |
-| options | Array | Array of current suggestions. This should be a filtered list based on the keyword emitted in the autocomplete event. Should be an array of strings or objects |
-| value | String | The value used in v-model binding |
+| Prop | Type | Description | Default |
+| :--- | :--- | :--- | :--- |
+| options | Array | Array of current suggestions. This should be a filtered list based on the keyword emitted in the autocomplete event. Should be an array of strings or objects | - |
+| value | String | The value used in v-model binding | - |
+| wrapper-classes | String | Used to customize appearance. Adds classnames to the wrapper div. | `suggest-search` |
+| input-classes | String | Used to customize appearance. Adds classnames to the input element. | `suggest-input` |
+| list-classes | String | Used to customize appearance. Adds classnames to the unordered options list. | `suggest-list` |
+| item-classes | String | Used to customize appearance. Adds classnames to the option list items. | `suggest-item` |
+| placeholder | String | Used to customize appearance. Adds placeholder text in search box. | `Search..` |
 
 ### Customizing the template for each option in the list.
 
