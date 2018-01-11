@@ -4,6 +4,10 @@
     <script src="https://unpkg.com/vue"></script>
     <script src="../dist/vue-suggest.plugin.js"></script>
     <style>
+        .search-wrap {
+            max-widht: 500px;
+            padding: 50px auto;
+        }
         .highlighted {
             color: red;
         }
@@ -14,7 +18,7 @@
         <vue-suggest
             :options="filteredOptions"
             v-model="value"
-            item-classes="customitemclass"
+            item-classes="custom-item-class"
             @input="logInput"
             @select="logSelect"
             @search="logSearch">

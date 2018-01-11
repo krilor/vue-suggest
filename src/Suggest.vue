@@ -31,35 +31,35 @@
   export default {
     name: 'suggest-search',
     props: {
-      Options: {
+      options: {
         type: Array,
         required: true
       },
-      Value: {
+      value: {
         type: String,
         required: false
       },
-      WrapperClasses: {
+      wrapperClasses: {
         type: String,
         required: false,
         default: 'suggest-wrap'
       },
-      InputClasses: {
+      inputClasses: {
         type: String,
         required: false,
         default: 'suggest-input'
       },
-      ListClasses: {
+      listClasses: {
         type: String,
         required: false,
         default: 'suggest-list'
       },
-      ItemClasses: {
+      itemClasses: {
         type: String,
         required: false,
         default: 'suggest-item'
       },
-      Placeholder: {
+      placeholder: {
         type: String,
         required: false,
         default: 'Search..'
