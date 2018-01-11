@@ -78,7 +78,7 @@ A sample customized item would for example be:
 ```html
 <vue-suggest
     :options="options"
-    @autocomplete="setKeyword"
+    v-model="value"
     @select="logSelect"
     @search="logSearch">
 
