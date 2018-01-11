@@ -518,11 +518,9 @@ var render = function() {
             }
           },
           [
-            _vm._t(
-              "item",
-              [_vm._v(" " + _vm._s(_vm.defaultValue(option)) + " ")],
-              { data: option }
-            )
+            _vm._t("item", [_vm._v(_vm._s(_vm.defaultValue(option)))], {
+              data: option
+            })
           ],
           2
         )
