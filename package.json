@@ -28,9 +28,7 @@
     "url": "https://github.com/krilor/vue-suggest/issues"
   },
   "homepage": "https://github.com/krilor/vue-suggest#readme",
-  "dependencies": {
-    "vue": "^2.5.13"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
@@ -38,6 +36,7 @@
     "eslint": "^4.15.0",
     "eslint-plugin-vue": "^4.1.0",
     "uglify-js": "^3.3.4",
+    "vue": "^2.5.13"
     "vue-loader": "^13.6.2",
     "webpack": "^3.10.0",
     "webpack-dev-server": "^2.10.1",
