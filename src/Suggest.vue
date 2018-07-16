@@ -134,7 +134,7 @@
       * $emits the current value types in input event
       */
       updateValue: function(value) {
-        this.isOpen = !!this.value
+        this.isOpen = !!value
         this.highlightedPosition = NaN
         this.$emit('input', value)
       }
