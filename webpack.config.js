@@ -1,13 +1,14 @@
 const webpack = require('webpack');
 const merge = require('webpack-merge');
 const path = require('path');
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
 
 var config = {
   output: {
     path: path.resolve(__dirname + '/dist/')
   },
   module: {
-    loaders: [{
+    rules: [{
         test: /\.js$/,
         loader: 'babel-loader',
         include: __dirname,
@@ -24,6 +25,9 @@ var config = {
       'vue$': 'vue/dist/vue.esm.js'
     }
   }
+  ,plugins: [
+    new VueLoaderPlugin()
+  ]
 };
 
 

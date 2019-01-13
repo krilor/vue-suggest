@@ -38,7 +38,7 @@
 
         <!-- Two-way binding using v-model -->
         <p>The input in vue-suggest is {{ vmodel }}</p>
-        <vue-suggest :options="options" v-model="vmodel">
+        <vue-suggest :options="filteredOptionsVmodel" v-model="vmodel">
         
 
         </vue-suggest>
@@ -59,6 +59,10 @@
             computed: {
                 filteredOptions () {
                     const re = new RegExp(this.value, 'i')
+                    return this.options.filter(o => o.match(re))
+                },
+                filteredOptionsVmodel () {
+                    const re = new RegExp(this.vmodel, 'i')
                     return this.options.filter(o => o.match(re))
                 }
             },
