@@ -67,6 +67,8 @@ The search element emits three events.
 | list-classes | String | Used to customize appearance. Adds classnames to the unordered options list. | `suggest-list` |
 | item-classes | String | Used to customize appearance. Adds classnames to the option list items. | `suggest-item` |
 | placeholder | String | Used to customize appearance. Adds placeholder text in search box. | `Search..` |
+| required | Boolean | Used to customize the required attribute of the input element. | false |
+| autofocus | Boolean | Used to customize the autofocus attribute of the input element. | false |
 
 ### Customizing the template for each option in the list.
 

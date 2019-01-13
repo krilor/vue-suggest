@@ -6,6 +6,8 @@
       v-on:input="updateValue($event.target.value)"
       :class="inputClasses"
       :placeholder="placeholder"
+      :required="required"
+      :autofocus="autofocus"
       @keyup.esc="isOpen = false"
       @keydown.down="moveDown"
       @keydown.up="moveUp"
@@ -63,6 +65,16 @@
         type: String,
         required: false,
         default: 'Search..'
+      },
+      required: {
+        type: Boolean,
+        required: false,
+        default: false
+      },
+      autofocus: {
+        type: Boolean,
+        required: false,
+        default: false
       }
     },
     data () {
@@ -122,7 +134,7 @@
       * $emits the current value types in input event
       */
       updateValue: function(value) {
-        this.isOpen = !!this.value
+        this.isOpen = !!value
         this.highlightedPosition = NaN
         this.$emit('input', value)
       }
